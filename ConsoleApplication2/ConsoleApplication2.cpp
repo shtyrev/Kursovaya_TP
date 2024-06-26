@@ -89,46 +89,83 @@ int main() {
 
 void build_pc(bool type_pc) {
     int component_view_number = 3;
-    vector<motherboard> vect_mb;
-    vector <ram> vect_memory;
+
     vector <processor> vect_cpu;
+    vector <motherboard> vect_mb;
     vector <cooling> vect_fan;
+    vector <ram> vect_memory;
     vector <powersupply> vect_ps;
-    vector <enclosure> vect_case;
     vector <drives> vect_drive;
+    vector <enclosure> vect_case;
     vector <vcard> vect_vcard;
+
     pc compucter;
+    int pc_chosen;
+ 
+    for (int i = 0; i < component_view_number; i++) {
+        vect_cpu.push_back(_cpu_set(type_pc));
+        _cpu_get(vect_cpu[i]);
+    }
+    cout << "Выберите один из предложенных комплектующих и введите его номер(1-3)" << endl;
+    cin >> pc_chosen;
+    compucter.set_cpu(vect_cpu[pc_chosen - 1]);
+    vect_cpu.clear();
+    processor chosen_cpu;
+    chosen_cpu = compucter.get_cpu();
 
-    /*   for (int i = 0; i < component_view_number; i++) {
-           vect_cpu.push_back(_cpu_set(type_pc));
-       }
-       for (int i = 0; i < component_view_number; i++) {
-           _cpu_get(vect_cpu[i]);
-       } */
-    vect_cpu.push_back(_cpu_set(type_pc));
-    _cpu_get(vect_cpu[0]);
+    for (int i = 0; i < component_view_number; i++) {
+        vect_mb.push_back(_mb_set(chosen_cpu, type_pc));
+        _mb_get(vect_mb[i]);
+    }
+    cout << "Выберите один из предложенных комплектующих и введите его номер(1-3)" << endl;
+    cin >> pc_chosen;
+    compucter.set_mb(vect_mb[pc_chosen - 1]);
+    vect_mb.clear();
+    motherboard chosen_mb;
+    chosen_mb = compucter.get_mb();
 
-    vect_mb.push_back(_mb_set(vect_cpu[0], type_pc));
-    _mb_get(vect_mb[0]);
+    for (int i = 0; i < component_view_number; i++) {
+        vect_fan.push_back(_cool_set(chosen_mb, type_pc));
+        _cool_get(vect_fan[i]);
+    }
+    cout << "Выберите один из предложенных комплектующих и введите его номер(1-3)" << endl;
+    cin >> pc_chosen;
+    compucter.set_cooling(vect_fan[pc_chosen - 1]);
+    vect_fan.clear();
 
-    vect_fan.push_back(_cool_set(vect_mb[0], type_pc));
-    _cool_get(vect_fan[0]);
+    for (int i = 0; i < component_view_number; i++) {
+        vect_memory.push_back(_ram_set(chosen_mb, type_pc));
+        _ram_get(vect_memory[i]);
+    }
+    cout << "Выберите один из предложенных комплектующих и введите его номер(1-3)" << endl;
+    cin >> pc_chosen;
 
-    vect_memory.push_back(_ram_set(vect_mb[0], type_pc));
-    _ram_get(vect_memory[0]);
+    for (int i = 0; i < component_view_number; i++) {
+        vect_ps.push_back(_powersupply_set(type_pc));
+        _powersupply_get(vect_ps[i]);
+    }
+    cout << "Выберите один из предложенных комплектующих и введите его номер(1-3)" << endl;
+    cin >> pc_chosen;
 
-    vect_ps.push_back(_powersupply_set(type_pc));
-    _powersupply_get(vect_ps[0]);
+    for (int i = 0; i < component_view_number; i++) {
+        vect_drive.push_back(_drive_set(chosen_mb, type_pc));
+        _drive_get(vect_drive[i]);
+    }
+    cout << "Выберите один из предложенных комплектующих и введите его номер(1-3)" << endl;
+    cin >> pc_chosen;
 
-    vect_drive.push_back(_drive_set(vect_mb[0], type_pc));
-    _drive_get(vect_drive[0]);
-
-    vect_case.push_back(_case_set(vect_mb[0], type_pc));
-    _case_get(vect_case[0]);
+    for (int i = 0; i < component_view_number; i++) {
+        vect_case.push_back(_case_set(chosen_mb, type_pc));
+        _case_get(vect_case[i]);
+    }
+    cout << "Выберите один из предложенных комплектующих и введите его номер(1-3)" << endl;
+    cin >> pc_chosen;
 
     if (type_pc) {
-        vect_vcard.push_back(_vc_set(vect_mb[0]));
-        _vc_get(vect_vcard[0]);
+        for (int i = 0; i < component_view_number; i++) {
+            vect_vcard.push_back(_vc_set(chosen_mb));
+            _vc_get(vect_vcard[i]);
+        }
     }
 }
 
