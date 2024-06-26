@@ -198,13 +198,13 @@ processor _cpu_set(bool type_pc) {
     if (type_pc) {
         _proc.set_cpu_video(false);
         _proc.set_price((rand() % (60 - 24 + 1) + 24) * 500);
-        _proc.set_cpu_cores((rand() % 4 + 2) * 2);
+        _proc.set_cpu_cores(rand_range(2, 4) * 2);
         _proc.set_cpu_frequency(rand() % (5000 - 2200 + 1) + 2200);
     } 
     else {
         _proc.set_cpu_video(true);
         _proc.set_price((rand() % (16 - 5 + 1) + 5) * 500);
-        _proc.set_cpu_cores((rand() % 3 + 1) * 2);
+        _proc.set_cpu_cores(rand_range(1, 3) * 2);
         _proc.set_cpu_frequency(rand() % (3200 - 1200 + 1) + 1200);
     }
 
@@ -384,11 +384,11 @@ enclosure _case_set(motherboard& _mb, bool type_pc) {
     _case.set_case_formfactor(_mb.get_mp_formfactor());
 
     if (type_pc) {
-        _case.set_price(rand_range(3, 12) * 1000 - 1);
+        _case.set_price(rand_range(40, 120) * 100 - 1);
     }
     else
     {
-        _case.set_price(rand_range(3, 12) * 1000 - 1);
+        _case.set_price(rand_range(10, 30) * 100 - 1);
     }
 
     return _case;
@@ -405,14 +405,14 @@ void _case_get(enclosure& _case) {
 vcard _vc_set(motherboard& _mb) {
     vcard _vc;
 
-    short manuf_rand_seed = rand() % 1;
+    short manuf_rand_seed = rand_range(0, 1);
     switch (manuf_rand_seed) {
     case 0: { _vc.set_name(vc_nvidia_names[rand() % 7]); _vc.set_video_manufacturer(vc_manufacturer[manuf_rand_seed]); break; }
     case 1: { _vc.set_name(vc_amd_names[rand() % 4]); _vc.set_video_manufacturer(vc_manufacturer[manuf_rand_seed]); break; }
     }
-    _vc.set_price((rand() % (100 - 15 + 1) + 15) * 1000);
-    _vc.set_video_frequency(rand() % (12000 - 7000 + 1) + 7000);
-    _vc.set_vram(vc_vram_volume[rand() % 6] * 1024);
+    _vc.set_price(rand_range(20, 100) * 1000);
+    _vc.set_video_frequency(rand_range(7000, 14000));
+    _vc.set_vram(vc_vram_volume[rand_range(0, 6)] * 1024);
     _vc.set_video_pci_interface(_mb.get_mp_pci_interface());
         
     return _vc;
