@@ -196,6 +196,7 @@ void build_pc(bool type_pc) {
 
 }
 
+
 motherboard _mb_set(processor& _cpu, bool type_pc) {
     motherboard _mb;
     _mb.set_name(mb_names[rand() % 3] + mb_second_names[rand() % 4]);
@@ -491,6 +492,7 @@ void _vc_get(vcard& _vc) {
     cout << "Видеопамять: " << _vc.get_vram() << " ГБ" << endl;
     cout << "PCI интерфейс: " << _vc.get_video_pci_interface() << endl << endl;
 }
+
 
 int rand_range(int start, int end) {
     int val = rand() % (end - start + 1) + start;
